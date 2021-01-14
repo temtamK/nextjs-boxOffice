@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import axios from 'axios';
 import Error from 'next/error'
+import Link from 'next/link'
 
 function Home(props) {
   // console.log(props.data.boxOfficeResult.dailyBoxOfficeList);
@@ -14,14 +15,24 @@ function Home(props) {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Box Office</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <h1>박스 오피스</h1>
+      <p>2020년 01월 14일</p>
       {
         props.data.boxOfficeResult.dailyBoxOfficeList.map((item => 
           <div kye={item.movieCd}>
-            {item.movieNm}
+            [{item.rank}]
+            {' '}
+            <Link href="/movies/[code]" as={'/movies/' + item.movieCd}>
+              <a>
+                {item.movieNm}
+              </a>
+            </Link>
+            {' '}
+            <small>({item.openDt})</small>
           </div>
           ) )
       }
